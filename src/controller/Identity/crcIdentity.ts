@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { createCRCidentity, options } from "../../utils/utils";
 import { sendRequest } from "../../config/osyterUrl";
 import { CRCInstance } from "../../schema/crc_data";
+import { ResponseInstance } from "../../schema/modules/crc_dataInstance";
 
 export const creatingCRC = async (req: Request, res: Response) => {
   try {
@@ -17,16 +18,15 @@ export const creatingCRC = async (req: Request, res: Response) => {
         .json({ error: identityCrc.error.details[0].message });
     }
 
-    const existingCrc = await CRCInstance.findOne({
+    const existingCrc = await ResponseInstance.findOne({
       where: {
-        "credit_crc.bvn": credit_crc.bvn,
+        creditcrcInstanceId: req.body.credit_crc,
       },
     });
 
     if (existingCrc) {
-      const response = await sendRequest(endpoint, method, existingCrc);
       return res.json({
-        response,
+        response: existingCrc,
       });
     }
 
@@ -38,7 +38,13 @@ export const creatingCRC = async (req: Request, res: Response) => {
     const response = await sendRequest(endpoint, method, createnewCrc);
 
     if (response.success) {
-      return res.status(201).json({ response });
+      const savedResponse = await ResponseInstance.create({
+        id: createnewCrc.idempotency_ref,
+        creditcrcInstanceId: createnewCrc.credit_crc, 
+        data: response.data,
+      });
+
+      return res.status(201).json({ response: savedResponse });
     } else {
       await createnewCrc.destroy();
       throw new Error(response.msg);

@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { createCreditPremiumidentity, options } from "../../utils/utils";
 import { sendRequest } from "../../config/osyterUrl";
 import { PremiumInstance } from "../../schema/credit_premium";
+import { ResponseInstance } from "../../schema/modules/credit_premium.Instance";
 
 export const creatingPremuim = async (req: Request, res: Response) => {
   try {
@@ -20,16 +21,16 @@ export const creatingPremuim = async (req: Request, res: Response) => {
         .json({ error: identityPremium.error.details[0].message });
     }
 
-    const existingPremium = await PremiumInstance.findOne({
+    const existingPremium = await ResponseInstance.findOne({
       where: {
-        "credit_premium.bvn": credit_premium.bvn,
+        creditpremiumInstanceId: req.body.credit_premium,
       },
     });
 
     if (existingPremium) {
-      const response = await sendRequest(endpoint, method, existingPremium);
+      // const response = await sendRequest(endpoint, method, existingPremium);
       return res.json({
-        response,
+        response: existingPremium,
       });
     }
 
@@ -41,7 +42,13 @@ export const creatingPremuim = async (req: Request, res: Response) => {
     const response = await sendRequest(endpoint, method, createnewCrc);
 
     if (response.success) {
-      return res.status(201).json({ response });
+      const savedResponse = await ResponseInstance.create({
+        id: createnewCrc.idempotency_ref,
+        creditpremiumInstanceId: createnewCrc.credit_premium, 
+        data: response.data,
+      });
+
+      return res.status(201).json({ response: savedResponse });
     } else {
       await createnewCrc.destroy();
       throw new Error(response.msg);

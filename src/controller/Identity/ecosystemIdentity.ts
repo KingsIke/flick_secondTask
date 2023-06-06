@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { EcosystemValidator, options } from "../../utils/utils";
 import { sendRequest } from "../../config/osyterUrl";
 import { EcosystemInstance } from "../../schema/ecosystem";
+import { ResponseInstance } from "../../schema/modules/ecosystemInstance";
 
   export const creatingEcosystem = async (req: Request, res: Response, next:NextFunction) => {
   try {
@@ -17,16 +18,15 @@ import { EcosystemInstance } from "../../schema/ecosystem";
         .json({ error: identityEcosystem.error.details[0].message });
     }
 
-    const existingEcosystem = await EcosystemInstance.findOne({
+    const existingEcosystem = await ResponseInstance.findOne({
       where: {
-        "ecosystem.bvn": ecosystem.bvn,
+        ecosystemInstanceId: req.body.ecosystem,
       },
     });
 
     if (existingEcosystem) {
-      const response = await sendRequest(endpoint, method, existingEcosystem);
       return res.json({
-        response,
+        response: existingEcosystem,
       });
     }
     const createnewEcosystem = await EcosystemInstance.create({
@@ -37,7 +37,13 @@ import { EcosystemInstance } from "../../schema/ecosystem";
     const response = await sendRequest(endpoint, method, createnewEcosystem);
 
     if (response.success) {
-      return res.status(201).json({ response });
+      const savedResponse = await ResponseInstance.create({
+        id: createnewEcosystem.idempotency_ref,
+        ecosystemInstanceId: createnewEcosystem.ecosystem, 
+        data: response.data,
+      });
+
+      return res.status(201).json({ response: savedResponse });
     } else {
       await createnewEcosystem.destroy();
       throw new Error(response.msg);

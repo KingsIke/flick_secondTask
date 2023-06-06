@@ -38,7 +38,8 @@ BvnInstance.init(
                     msg: 'BVN is required'
                 }
             }
-        }
+        },
+    
     
     },
     {
@@ -48,3 +49,5 @@ BvnInstance.init(
 )
 
 BvnInstance.sync()
+
+

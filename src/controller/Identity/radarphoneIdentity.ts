@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { RadarPhoneValidator, options } from "../../utils/utils";
 import { sendRequest } from "../../config/osyterUrl";
 import { RDPHONEInstance } from "../../schema/radarphone";
+import { ResponseInstance } from "../../schema/modules/radarphoneInstance";
 
 export const creatingRDPhone = async (req: Request, res: Response) => {
   try {
@@ -17,16 +18,15 @@ export const creatingRDPhone = async (req: Request, res: Response) => {
         .json({ error: identityRDPhone.error.details[0].message });
     }
 
-    const existingRDPhone = await RDPHONEInstance.findOne({
+    const existingRDPhone = await ResponseInstance.findOne({
       where: {
-        "radar_phone.phone": radar_phone.phone,
+        radarphoneInstanceId: req.body.radar_phone,
       },
     });
 
-    if (existingRDPhone) {
-      const response = await sendRequest(endpoint, method, existingRDPhone);
+    if (existingRDPhone) {;
       return res.json({
-        response,
+        response : existingRDPhone,
       });
     }
 
@@ -38,7 +38,13 @@ export const creatingRDPhone = async (req: Request, res: Response) => {
     const response = await sendRequest(endpoint, method, createnewRDPhone);
 
     if (response.success) {
-      return res.status(201).json({ response });
+      const savedResponse = await ResponseInstance.create({
+        id: createnewRDPhone.idempotency_ref,
+        radarphoneInstanceId: createnewRDPhone.radar_phone, 
+        data: response.data,
+      });
+
+      return res.status(201).json({ response: savedResponse });
     } else {
       await createnewRDPhone.destroy();
       throw new Error(response.msg);

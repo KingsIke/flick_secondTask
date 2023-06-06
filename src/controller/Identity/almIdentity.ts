@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { AmlDataTypeValidator, options } from "../../utils/utils";
 import { sendRequest } from "../../config/osyterUrl";
 import { AlmInstance } from "../../schema/aml";
+import { ResponseInstance } from "../../schema/modules/amlInstance";
 
 export const createAlm = async (
   req: Request,
@@ -22,22 +23,17 @@ export const createAlm = async (
       });
     }
 
-    //   /// Duplicates
-    const duplicateAlm = await AlmInstance.findOne({
+    const duplicateAlm = await ResponseInstance.findOne({
       where: {
-        "aml.date_of_birth": aml.date_of_birth,
-        "aml.first_name": aml.first_name,
-        "aml.last_name": aml.last_name,
+        almInstanceId: req.body.alm
       },
     });
 
     if (duplicateAlm) {
-      if (duplicateAlm) {
-        const response = await sendRequest(endpoint, method, duplicateAlm);
         return res.json({
-          response,
+          data:duplicateAlm,
         });
-      }
+      
     }
     const amlCreated = await AlmInstance.create({
       idempotency_ref: uuidv4(),
@@ -47,9 +43,14 @@ export const createAlm = async (
 
     const response = await sendRequest(endpoint, method, amlCreated);
     if (response.success) {
+      const savedResponse = await ResponseInstance.create({
+        id: amlCreated.idempotency_ref,
+        almInstanceId: amlCreated.aml, 
+        data: response.data,
+      });
       return res
         .status(201)
-        .json({  response });
+        .json({  response:savedResponse });
     } else {
       await amlCreated.destroy();
       throw new Error(response.msg);

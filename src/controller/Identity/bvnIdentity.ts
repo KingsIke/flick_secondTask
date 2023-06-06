@@ -1,17 +1,17 @@
 import { Request, Response, NextFunction } from "express";
 import { v4 as uuidv4 } from "uuid";
-import {
-  createBvnidentity,
-  options,
-} from "../../utils/utils";
+import { createBvnidentity, options } from "../../utils/utils";
 import { sendRequest } from "../../config/osyterUrl";
 import { BvnInstance } from "../../schema/bvn";
+import { ResponseInstance } from "../../schema/modules/bvnInstance"
 
 export const createBvn = async (
-  req: Request,
+  req: Request,  
   res: Response,
   next: NextFunction
 ) => {
+
+
   try {
     const endpoint = "/identity-verification";
     const method = "POST";
@@ -24,13 +24,16 @@ export const createBvn = async (
       });
     }
 
-    const duplicateBvn = await BvnInstance.findOne({ where: { bvn: bvn } });
-    if (duplicateBvn) {
-      const response = await sendRequest(endpoint, method, duplicateBvn);
-      return res.json({
-        response,
-      });
-    }
+
+      const Duplicate_result = await ResponseInstance.findOne({
+        where : {
+          bvnInstanceId :req.body.bvn
+        }
+      })
+       if (Duplicate_result) {
+        return res.json({data: Duplicate_result})
+       }
+
 
     const bvnCreated = await BvnInstance.create({
       idempotency_ref: uuidv4(),
@@ -41,15 +44,23 @@ export const createBvn = async (
     const response = await sendRequest(endpoint, method, bvnCreated);
 
     if (response.success) {
-      return res
-        .status(201)
-        .json({  response });
+      const savedResponse = await ResponseInstance.create({
+        id: bvnCreated.idempotency_ref,
+        bvnInstanceId: bvnCreated.bvn, 
+        data: response.data,
+      });
+
+      return res.status(201).json({ response: savedResponse });
     } else {
       await bvnCreated.destroy();
       throw new Error(response.msg);
     }
   } catch (error: any) {
     console.error("Error getting bvn:", error.message);
-    res.status(500).json({ error: "Wrong Data Input" });
+    res.status(500).json({ error});
   }
 };
+
+
+
+

@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { createNinidentity, options } from "../../utils/utils";
 import { sendRequest } from "../../config/osyterUrl";
 import { NinInstance } from "../../schema/nin";
+import { ResponseInstance } from "../../schema/modules/ninInstance";
 
 export const createNin = async (
   req: Request,
@@ -21,12 +22,11 @@ export const createNin = async (
       });
     }
 
-    const duplicateNin = await NinInstance.findOne({ where: { nin: nin } });
+    const duplicateNin = await ResponseInstance.findOne({ where: { ninInstanceId: req.body.nin } });
 
     if (duplicateNin) {
-      const response = await sendRequest(endpoint, method, duplicateNin);
       return res.json({
-        response,
+        response3 : duplicateNin,
       });
     }
     const ninCreated = await NinInstance.create({
@@ -37,7 +37,13 @@ export const createNin = async (
     const response = await sendRequest(endpoint, method, ninCreated);
 
     if (response.success) {
-      return res.status(201).json({ response });
+      const savedResponse = await ResponseInstance.create({
+        id: ninCreated.idempotency_ref,
+        ninInstanceId: ninCreated.nin, 
+        data: response.data,
+      });
+
+      return res.status(201).json({ response: savedResponse });
     } else {
       await ninCreated.destroy();
       throw new Error(response.msg);

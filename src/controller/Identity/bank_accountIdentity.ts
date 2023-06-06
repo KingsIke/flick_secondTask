@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { BankAccountValidator, options } from "../../utils/utils";
 import { sendRequest } from "../../config/osyterUrl";
 import { BankInstance } from "../../schema/bank_account";
+import { ResponseInstance } from "../../schema/modules/bank_accountInstance";
 
 export const creatingBankAccount = async (req: Request, res: Response) => {
   try {
@@ -20,16 +21,15 @@ export const creatingBankAccount = async (req: Request, res: Response) => {
     }
 
 
-    const existingBank = await BankInstance.findOne({
+    const existingBank = await ResponseInstance.findOne({
       where: {
-        "bank_account.account_number": bank_account.account_number,
+        bankInstanceId: req.body.bank_account,
       },
     });
 
     if (existingBank) {
-      const response = await sendRequest(endpoint, method, existingBank);
       return res.json({
-        response,
+        data: existingBank,
       });
     }
 
@@ -41,9 +41,14 @@ export const creatingBankAccount = async (req: Request, res: Response) => {
     const response = await sendRequest(endpoint, method, createnewBank);
 
     if (response.success) {
+      const savedResponse = await ResponseInstance.create({
+        id: createnewBank.idempotency_ref,
+        bankInstanceId: createnewBank.bank_account, 
+        data: response.data,
+      });
       return res
         .status(201)
-        .json({  response });
+        .json({  response:savedResponse });
     } else {
       await createnewBank.destroy();
       throw new Error(response.msg);

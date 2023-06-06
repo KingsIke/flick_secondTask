@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 import { AddressValidator, options } from "../../utils/utils";
 import { sendRequest } from "../../config/osyterUrl";
 import { AddressInstance } from "../../schema/address";
+import { ResponseInstance } from "../../schema/modules/addressInstance"
+
 
 export const creatingAddress = async (
   req: Request,
@@ -21,16 +23,15 @@ export const creatingAddress = async (
         .json({ error: identityAddress.error.details[0].message });
     }
 
-    const existingAddress = await AddressInstance.findOne({
+    const existingAddress = await ResponseInstance.findOne({
       where: {
-        "address.phone": address.phone,
+        addressInstanceId: req.body.address,
       },
     });
 
     if (existingAddress) {
-      const response = await sendRequest(endpoint, method, existingAddress);
       return res.json({
-        response,
+        data:existingAddress,
       });
     }
 
@@ -42,6 +43,11 @@ export const creatingAddress = async (
     const response = await sendRequest(endpoint, method, createnewAddress);
 
     if (response.success) {
+      const savedResponse = await ResponseInstance.create({
+        id: createnewAddress.idempotency_ref,
+        addressInstanceId: createnewAddress.address, 
+        data: response.data,
+      });
       return res
       .status(201)
       .json({ response });

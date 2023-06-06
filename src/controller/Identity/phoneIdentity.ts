@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { createPhoneidentity, options } from "../../utils/utils";
 import { sendRequest } from "../../config/osyterUrl";
 import { PhoneInstance } from "../../schema/phone";
+import { ResponseInstance } from "../../schema/modules/phoneInstance";
 
 export const createPhone = async (
   req: Request,
@@ -21,14 +22,13 @@ export const createPhone = async (
       });
     }
 
-    const duplicatePhone = await PhoneInstance.findOne({
-      where: { phone: phone },
+    const duplicatePhone = await ResponseInstance.findOne({
+      where: { phoneInstanceId: req.body.phone },
     });
 
     if (duplicatePhone) {
-      const response = await sendRequest(endpoint, method, duplicatePhone);
       return res.json({
-        response,
+        response : duplicatePhone,
       });
     }
     const PhoneCreated = await PhoneInstance.create({
@@ -39,7 +39,13 @@ export const createPhone = async (
     const response = await sendRequest(endpoint, method, PhoneCreated);
 
     if (response.success) {
-      return res.status(201).json({ response });
+      const savedResponse = await ResponseInstance.create({
+        id: PhoneCreated.idempotency_ref,
+        phoneInstanceId: PhoneCreated.phone, 
+        data: response.data,
+      });
+
+      return res.status(201).json({ response: savedResponse });
     } else {
       await PhoneCreated.destroy();
       throw new Error(response.msg);

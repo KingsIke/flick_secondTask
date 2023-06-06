@@ -4,6 +4,7 @@ import { CACValidator, options } from "../../utils/utils";
 import { sendRequest } from "../../config/osyterUrl";
 
 import { CACInstance } from "../../schema/cac";
+import { ResponseInstance } from "../../schema/modules/cacInstance";
 
 export const createCAC = async (
   req: Request,
@@ -25,16 +26,16 @@ export const createCAC = async (
     }
 
     //   /// Duplicates
-    const duplicateCac = await CACInstance.findOne({
+    const duplicateCac = await ResponseInstance.findOne({
       where: {
-        "cac.rc_number": cac.rc_number,
+        cacInstanceId: req.body.cac,
       },
     });
 
     if (duplicateCac) {
-      const response = await sendRequest(endpoint, method, duplicateCac);
+      // const response = await sendRequest(endpoint, method, duplicateCac);
       return res.json({
-        response,
+        response: duplicateCac,
       });
     }
     const cacCreated = await CACInstance.create({
@@ -46,7 +47,13 @@ export const createCAC = async (
     const response = await sendRequest(endpoint, method, cacCreated);
 
     if (response.success) {
-      return res.status(201).json({ response });
+      const savedResponse = await ResponseInstance.create({
+        id: cacCreated.idempotency_ref,
+        cacInstanceId: cacCreated.cac, 
+        data: response.data,
+      });
+
+      return res.status(201).json({ response: savedResponse });
     } else {
       await cacCreated.destroy();
       throw new Error(response.msg);

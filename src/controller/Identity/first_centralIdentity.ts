@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { createFirstCreditidentity, options } from "../../utils/utils";
 import { sendRequest } from "../../config/osyterUrl";
 import { CreditInstance } from "../../schema/first_central";
+import { ResponseInstance } from "../../schema/modules/first_centralInstance";
 
 export const creatingCreditCentral = async (req: Request, res: Response) => {
   try {
@@ -20,16 +21,15 @@ export const creatingCreditCentral = async (req: Request, res: Response) => {
         .json({ error: identityCredit.error.details[0].message });
     }
 
-    const existingCrc = await CreditInstance.findOne({
+    const existingCrc = await ResponseInstance.findOne({
       where: {
-        "credit_first_central.bvn": credit_first_central.bvn,
+        creditfirstInstanceId: req.body.credit_first_central,
       },
     });
 
     if (existingCrc) {
-      const response = await sendRequest(endpoint, method, existingCrc);
       return res.json({
-        response,
+        response : existingCrc,
       });
     }
 
@@ -41,7 +41,13 @@ export const creatingCreditCentral = async (req: Request, res: Response) => {
     const response = await sendRequest(endpoint, method, createnewCrc);
 
     if (response.success) {
-      return res.status(201).json({ response });
+      const savedResponse = await ResponseInstance.create({
+        id: createnewCrc.idempotency_ref,
+        creditfirstInstanceId: createnewCrc.credit_first_central, 
+        data: response.data,
+      });
+
+      return res.status(201).json({ response: savedResponse });
     } else {
       await createnewCrc.destroy();
       throw new Error(response.msg);

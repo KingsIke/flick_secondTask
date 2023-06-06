@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { createVotersCardidentity, options } from "../../utils/utils";
 import { sendRequest } from "../../config/osyterUrl";
 import { VoterCardInstance } from "../../schema/voters_card";
+import { ResponseInstance } from "../../schema/modules/voters_cardInstance";
 
 export const createVotersCard = async (
   req: Request,
@@ -21,14 +22,14 @@ export const createVotersCard = async (
       });
     }
 
-    const duplicateVoter = await VoterCardInstance.findOne({
-      where: { voters_card: voters_card },
+    const duplicateVoter = await ResponseInstance.findOne({
+      where: { voterInstanceId: req.body.voters_card },
     });
 
     if (duplicateVoter) {
-      const response = await sendRequest(endpoint, method, duplicateVoter);
+      // const response = await sendRequest(endpoint, method, duplicateVoter);
       return res.json({
-        response,
+        response : duplicateVoter,
       });
     }
 
@@ -40,7 +41,13 @@ export const createVotersCard = async (
     const response = await sendRequest(endpoint, method, VoterCreated);
 
     if (response.success) {
-      return res.status(201).json({ response });
+      const savedResponse = await ResponseInstance.create({
+        id: VoterCreated.idempotency_ref,
+        voterInstanceId: VoterCreated.voters_card, 
+        data: response.data,
+      });
+
+      return res.status(201).json({ response: savedResponse });
     } else {
       await VoterCreated.destroy();
       throw new Error(response.msg);
