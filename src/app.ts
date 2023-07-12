@@ -1,7 +1,6 @@
 import express, {Request, Response, NextFunction} from "express"
 import { connectDB } from "./config/db"
 import dotenv from "dotenv"
-import customersRoutes from "./routes/customersRoutes"
 import bvnRoute from "./routes/bvnRoute"
 import ninRoutes from "./routes/ninRoutes";
 import phoneRoutes from "./routes/phoneRoutes";
@@ -30,7 +29,6 @@ connectDB()
 
 
 app.use(express.json());
-app.use('/api', customersRoutes)
 app.use('/api', bvnRoute)
 app.use('/api', ninRoutes)
 app.use('/api', phoneRoutes)
