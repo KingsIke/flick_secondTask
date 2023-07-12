@@ -9,13 +9,13 @@ export interface IBankInstance {
 }
 
 
-export class ResponseInstance extends Model<IBankInstance> {
+export class BankIdentityInstance extends Model<IBankInstance> {
     declare  id: string;
      declare bankInstanceId: object;
     declare  data: object
    }
 
-ResponseInstance.init (
+   BankIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'BankResponse',
   }
   );
-ResponseInstance.sync()
+  BankIdentityInstance.sync()

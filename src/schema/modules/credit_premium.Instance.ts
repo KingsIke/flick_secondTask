@@ -9,13 +9,13 @@ export interface IPremiumInstance {
 }
 
 
-export class ResponseInstance extends Model<IPremiumInstance> {
+export class PremiumIdentityInstance extends Model<IPremiumInstance> {
     declare  id: string;
      declare creditpremiumInstanceId: object;
     declare  data: object
    }
 
-ResponseInstance.init (
+   PremiumIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'PremiumResponse',
   }
   );
-ResponseInstance.sync()
+  PremiumIdentityInstance.sync()

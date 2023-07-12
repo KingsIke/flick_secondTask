@@ -9,13 +9,13 @@ export interface IBPhoneInstance {
 }
 
 
-export class ResponseInstance extends Model<IBPhoneInstance> {
+export class BasicPhoneInstance extends Model<IBPhoneInstance> {
     declare  id: string;
      declare phoneBasicInstanceId: string;
     declare  data: object
    }
 
-ResponseInstance.init (
+   BasicPhoneInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'BasicPhoneResponse',
   }
   );
-ResponseInstance.sync()
+  BasicPhoneInstance.sync()

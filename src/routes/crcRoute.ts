@@ -1,9 +1,9 @@
-import express from 'express';
-import { crcIdentity } from '../controller/Identity/crcIdentity';
+// import express from 'express';
+// import { crcIdentity } from '../controller/Identity/crcIdentity';
 
 
-const router = express.Router()
+// const router = express.Router()
  
 
-router.post( '/credit', crcIdentity)
-export default router
+// router.post( '/credit_identity', crcIdentity)
+// export default router

@@ -9,13 +9,13 @@ export interface ICrcInstance {
 }
 
 
-export class ResponseInstance extends Model<ICrcInstance> {
+export class CRCIdentityInstance extends Model<ICrcInstance> {
     declare  id: string;
      declare creditcrcInstanceId: object;
     declare  data: object
    }
 
-ResponseInstance.init (
+   CRCIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'CreditCRCResponse',
   }
   );
-ResponseInstance.sync()
+  CRCIdentityInstance.sync()

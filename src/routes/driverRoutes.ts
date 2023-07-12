@@ -1,9 +1,9 @@
-import express from 'express';
-import { driverLicenceIdentity } from '../controller/Identity/driverlicenceIdentity';
+// import express from 'express';
+// import { driverLicenceIdentity } from '../controller/Identity/driverlicenceIdentity';
 
 
-const router = express.Router()
+// const router = express.Router()
  
 
-router.post( '/driverlicence_identity', driverLicenceIdentity)
-export default router
+// router.post( '/driverlicence_identity', driverLicenceIdentity)
+// export default router

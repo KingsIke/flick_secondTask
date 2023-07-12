@@ -9,13 +9,13 @@ export interface IBvnInstance {
 }
 
 
-export class ResponseInstance extends Model<IBvnInstance> {
+export class BVNIdentityInstance extends Model<IBvnInstance> {
     declare  id: string;
      declare bvnInstanceId: string;
     declare  data: object
    }
 
-ResponseInstance.init (
+   BVNIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'BvnResponse',
   }
   );
-ResponseInstance.sync()
+  BVNIdentityInstance.sync()

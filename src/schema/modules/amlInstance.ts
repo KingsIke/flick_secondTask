@@ -9,13 +9,13 @@ export interface IAlmInstance {
 }
 
 
-export class ResponseInstance extends Model<IAlmInstance> {
+export class AlmIdentityInstance extends Model<IAlmInstance> {
     declare  id: string;
      declare almInstanceId: object;
     declare  data: object
    }
 
-ResponseInstance.init (
+   AlmIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'AlmResponse',
   }
   );
-ResponseInstance.sync()
+  AlmIdentityInstance.sync()

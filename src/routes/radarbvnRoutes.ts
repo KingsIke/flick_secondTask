@@ -1,9 +1,9 @@
-import express from 'express';
-import { radarBvnIdentity } from '../controller/Identity/radarbvnIdentity';
+// import express from 'express';
+// import { radarBvnIdentity } from '../controller/Identity/radarbvnIdentity';
 
 
-const router = express.Router();
+// const router = express.Router();
 
-router.post( '/radar_bvn_identity', radarBvnIdentity
-)
-export default router
+// router.post( '/radar_bvn_identity', radarBvnIdentity
+// )
+// export default router

@@ -9,13 +9,13 @@ export interface IRDBVNInstance {
 }
 
 
-export class ResponseInstance extends Model<IRDBVNInstance> {
+export class RDBVNIdentityInstance extends Model<IRDBVNInstance> {
     declare  id: string;
      declare radarbvnInstanceId: object;
     declare  data: object
    }
 
-ResponseInstance.init (
+   RDBVNIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'RadarBvnResponse',
   }
   );
-ResponseInstance.sync()
+  RDBVNIdentityInstance.sync()

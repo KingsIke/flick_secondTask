@@ -16,6 +16,7 @@ export function connectDB(): Sequelize {
     // console.log('Database dropped successfully');
     db.authenticate();
     db.sync();
+    // db.drop()
     console.log("Connection has been established successfully.");
     return db;
   } catch (error) {

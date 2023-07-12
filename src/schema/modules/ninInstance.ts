@@ -9,13 +9,13 @@ export interface INinInstance {
 }
 
 
-export class ResponseInstance extends Model<INinInstance> {
+export class NINIdentityInstance extends Model<INinInstance> {
     declare  id: string;
      declare ninInstanceId: string;
     declare  data: string
    }
 
-ResponseInstance.init (
+   NINIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'NinResponse',
   }
   );
-ResponseInstance.sync()
+  NINIdentityInstance.sync()

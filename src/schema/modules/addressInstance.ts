@@ -9,13 +9,13 @@ export interface IAddressInstance {
 }
 
 
-export class ResponseInstance extends Model<IAddressInstance> {
+export class AddressIdentityInstance extends Model<IAddressInstance> {
     declare  id: string;
      declare addressInstanceId: object;
     declare  data: object
    }
 
-ResponseInstance.init (
+   AddressIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'AddressResponse',
   }
   );
-ResponseInstance.sync()
+  AddressIdentityInstance.sync()

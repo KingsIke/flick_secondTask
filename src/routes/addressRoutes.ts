@@ -1,9 +1,9 @@
-import express from 'express';
-import { addressIdentity } from '../controller/Identity/addressIdentity';
+// import express from 'express';
+// import { addressIdentity } from '../controller/Identity/addressIdentity';
 
 
-const router = express.Router()
+// const router = express.Router()
  
 
-router.post( '/address', addressIdentity)
-export default router
+// router.post( '/address_identity', addressIdentity)
+// export default router

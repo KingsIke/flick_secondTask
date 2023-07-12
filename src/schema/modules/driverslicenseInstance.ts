@@ -9,13 +9,13 @@ export interface IDriverInstance {
 }
 
 
-export class ResponseInstance extends Model<IDriverInstance> {
+export class DriverIdentityInstance extends Model<IDriverInstance> {
     declare  id: string;
      declare driverlicInstanceId: object;
     declare  data: object
    }
 
-ResponseInstance.init (
+   DriverIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'DriverLicenseResponse',
   }
   );
-ResponseInstance.sync()
+  DriverIdentityInstance.sync()

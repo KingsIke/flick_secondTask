@@ -9,13 +9,13 @@ export interface ICacInstance {
 }
 
 
-export class ResponseInstance extends Model<ICacInstance> {
+export class CACIdentityInstance extends Model<ICacInstance> {
     declare  id: string;
      declare cacInstanceId: object;
     declare  data: object
    }
 
-ResponseInstance.init (
+   CACIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'CACResponse',
   }
   );
-ResponseInstance.sync()
+  CACIdentityInstance.sync()

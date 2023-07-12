@@ -9,13 +9,13 @@ export interface IKarmaInstance {
 }
 
 
-export class ResponseInstance extends Model<IKarmaInstance> {
+export class KarmaIdentityInstance extends Model<IKarmaInstance> {
     declare  id: string;
      declare karmaInstanceId: object;
     declare  data: object
    }
 
-ResponseInstance.init (
+   KarmaIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'KarmaResponse',
   }
   );
-ResponseInstance.sync()
+  KarmaIdentityInstance.sync()

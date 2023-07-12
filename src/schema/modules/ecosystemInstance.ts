@@ -9,13 +9,13 @@ export interface IEcosystemInstance {
 }
 
 
-export class ResponseInstance extends Model<IEcosystemInstance> {
+export class EcosystemIdentityInstance extends Model<IEcosystemInstance> {
     declare  id: string;
      declare ecosystemInstanceId: object;
     declare  data: object
    }
 
-ResponseInstance.init (
+   EcosystemIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'EcosystemResponse',
   }
   );
-ResponseInstance.sync()
+  EcosystemIdentityInstance.sync()

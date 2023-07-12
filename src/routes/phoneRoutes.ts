@@ -1,9 +1,9 @@
-import express from 'express';
-import { phoneIdentity } from '../controller/Identity/phoneIdentity';
+// import express from 'express';
+// import { phoneIdentity } from '../controller/Identity/phoneIdentity';
 
 
-const router = express.Router()
+// const router = express.Router()
  
 
-router.post( '/phone_identity', phoneIdentity)
-export default router
+// router.post( '/phone_identity', phoneIdentity)
+// export default router

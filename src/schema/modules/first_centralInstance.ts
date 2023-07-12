@@ -9,13 +9,13 @@ export interface IFirstCentralInstance {
 }
 
 
-export class ResponseInstance extends Model<IFirstCentralInstance> {
+export class FirstCentralIdentityInstance extends Model<IFirstCentralInstance> {
     declare  id: string;
      declare creditfirstInstanceId: object;
     declare  data: object
    }
 
-ResponseInstance.init (
+   FirstCentralIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'CreditCentralResponse',
   }
   );
-ResponseInstance.sync()
+  FirstCentralIdentityInstance.sync()

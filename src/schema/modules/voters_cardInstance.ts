@@ -9,13 +9,13 @@ export interface IVoteInstance {
 }
 
 
-export class ResponseInstance extends Model<IVoteInstance> {
+export class VoteIdentityInstance extends Model<IVoteInstance> {
     declare  id: string;
      declare voterInstanceId: string;
     declare  data: object
    }
 
-ResponseInstance.init (
+   VoteIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'VoterResponse',
   }
   );
-ResponseInstance.sync()
+  VoteIdentityInstance.sync()

@@ -1,10 +1,10 @@
-import express from 'express';
-// import { createCustomer } from '../controller/customer';
-import { ninIdentity } from '../controller/Identity/ninIdentity';
+// import express from 'express';
+// // import { createCustomer } from '../controller/customer';
+// import { ninIdentity } from '../controller/Identity/ninIdentity';
 
 
-const router = express.Router()
+// const router = express.Router()
  
 
-router.post( '/nin', ninIdentity)
-export default router
+// router.post( '/nin_identity', ninIdentity)
+// export default router

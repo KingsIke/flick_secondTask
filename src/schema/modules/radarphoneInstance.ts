@@ -9,13 +9,13 @@ export interface IRDPhoneInstance {
 }
 
 
-export class ResponseInstance extends Model<IRDPhoneInstance> {
+export class RDPhoneIdentityInstance extends Model<IRDPhoneInstance> {
     declare  id: string;
      declare radarphoneInstanceId: object;
     declare  data: object
    }
 
-ResponseInstance.init (
+   RDPhoneIdentityInstance.init (
     {
   id: {
     type: DataTypes.UUID,
@@ -36,4 +36,4 @@ ResponseInstance.init (
     tableName: 'RadarPhoneResponse',
   }
   );
-ResponseInstance.sync()
+  RDPhoneIdentityInstance.sync()
