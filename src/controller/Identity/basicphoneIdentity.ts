@@ -5,7 +5,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { BPhoneInstance } from "../../schema/basicphone";
 import { ResponseInstance } from "../../schema/modules/basicphoneInstance";
 
-export const creatingBPhone = async (req: Request, res: Response) => {
+export const basicPhoneIdentity = async (req: Request, res: Response) => {
   try {
     const endpoint = "/identity-verification?data_type=phone_basic";
     const method = "POST";

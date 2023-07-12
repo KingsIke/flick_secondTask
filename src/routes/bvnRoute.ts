@@ -1,9 +1,9 @@
 import express from 'express';
-import { createBvn } from '../controller/Identity/bvnIdentity';
+import { bvnIdentity } from '../controller/Identity/bvnIdentity';
 
 
 const router = express.Router()
  
 
-router.post( '/bvn', createBvn)
+router.post( '/bvn', bvnIdentity)
 export default router

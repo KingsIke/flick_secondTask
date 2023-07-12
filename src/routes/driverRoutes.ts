@@ -1,10 +1,9 @@
 import express from 'express';
-import { creatingBankAccount } from '../controller/Identity/bank_accountIdentity';
-import { creatingDriverlicence } from '../controller/Identity/driverlicenceIdentity';
+import { driverLicenceIdentity } from '../controller/Identity/driverlicenceIdentity';
 
 
 const router = express.Router()
  
 
-router.post( '/drivers_license', creatingDriverlicence)
+router.post( '/driverlicence_identity', driverLicenceIdentity)
 export default router

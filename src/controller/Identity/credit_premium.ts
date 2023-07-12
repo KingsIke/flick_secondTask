@@ -5,7 +5,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { PremiumInstance } from "../../schema/credit_premium";
 import { ResponseInstance } from "../../schema/modules/credit_premium.Instance";
 
-export const creatingPremuim = async (req: Request, res: Response) => {
+export const creditPremuimIdentity = async (req: Request, res: Response) => {
   try {
     const endpoint = "/identity-verification?data_type=credit_premium";
     const method = "POST";

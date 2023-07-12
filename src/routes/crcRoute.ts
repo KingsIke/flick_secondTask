@@ -1,9 +1,9 @@
 import express from 'express';
-import { creatingCRC } from '../controller/Identity/crcIdentity';
+import { crcIdentity } from '../controller/Identity/crcIdentity';
 
 
 const router = express.Router()
  
 
-router.post( '/credit', creatingCRC)
+router.post( '/credit', crcIdentity)
 export default router

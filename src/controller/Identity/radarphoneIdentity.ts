@@ -5,7 +5,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { RDPHONEInstance } from "../../schema/radarphone";
 import { ResponseInstance } from "../../schema/modules/radarphoneInstance";
 
-export const creatingRDPhone = async (req: Request, res: Response) => {
+export const radarPhoneIdentity = async (req: Request, res: Response) => {
   try {
     const endpoint = "/identity-verification?data_type=radar_phone";
     const method = "POST";

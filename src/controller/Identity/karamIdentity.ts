@@ -5,7 +5,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { KARMAInstance } from "../../schema/karma";
 import { ResponseInstance } from "../../schema/modules/karmaInstance";
 
-export const creatingKarma = async (req: Request, res: Response) => {
+export const karmaIdentity = async (req: Request, res: Response) => {
   try {
     const endpoint = "/identity-verification?data_type=karma";
     const method = "POST";

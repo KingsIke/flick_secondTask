@@ -6,7 +6,7 @@ import { AddressInstance } from "../../schema/address";
 import { ResponseInstance } from "../../schema/modules/addressInstance"
 
 
-export const creatingAddress = async (
+export const addressIdentity = async (
   req: Request,
   res: Response,
   next: NextFunction

@@ -5,7 +5,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { BankInstance } from "../../schema/bank_account";
 import { ResponseInstance } from "../../schema/modules/bank_accountInstance";
 
-export const creatingBankAccount = async (req: Request, res: Response) => {
+export const bankAccountIdentity = async (req: Request, res: Response) => {
   try {
     const endpoint = "/identity-verification?data_type=bank_account";
     const method = "POST";

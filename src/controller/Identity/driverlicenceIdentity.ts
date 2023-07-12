@@ -8,7 +8,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { DriverInstance } from "../../schema/driverslicense";
 import { ResponseInstance } from "../../schema/modules/driverslicenseInstance";
 
-export const creatingDriverlicence = async (req: Request, res: Response) => {
+export const driverLicenceIdentity = async (req: Request, res: Response) => {
   try {
     const endpoint = "/identity-verification?data_type=drivers_license";
     const method = "POST";

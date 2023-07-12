@@ -1,9 +1,9 @@
 import express from 'express';
-import { creatingEcosystem } from '../controller/Identity/ecosystemIdentity';
+import { ecosystemIdentity } from '../controller/Identity/ecosystemIdentity';
 
 
 const router = express.Router()
  
 
-router.post( '/ecosystem', creatingEcosystem)
+router.post( '/ecosystem_identity', ecosystemIdentity)
 export default router

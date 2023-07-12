@@ -1,9 +1,9 @@
 import express from 'express';
-import { creatingBPhone } from '../controller/Identity/basicphoneIdentity';
+import { basicPhoneIdentity } from '../controller/Identity/basicphoneIdentity';
 
 
 const router = express.Router()
  
 
-router.post( '/phone_basic', creatingBPhone)
+router.post( '/phone_basic', basicPhoneIdentity)
 export default router

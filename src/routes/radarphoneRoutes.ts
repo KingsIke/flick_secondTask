@@ -1,10 +1,10 @@
 
 import express from 'express';
-import { creatingRDPhone } from '../controller/Identity/radarphoneIdentity';
+import { radarPhoneIdentity } from '../controller/Identity/radarphoneIdentity';
 
 
 const router = express.Router();
 
-router.post( '/radar_phone', creatingRDPhone
+router.post( '/radar_phone_identity', radarPhoneIdentity
 )
 export default router

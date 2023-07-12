@@ -1,9 +1,9 @@
 import express from 'express';
-import { createCAC } from '../controller/Identity/cacIdentity';
+import { cacIdentity } from '../controller/Identity/cacIdentity';
 
 
 const router = express.Router()
  
 
-router.post( '/cac', createCAC)
+router.post( '/cac', cacIdentity)
 export default router

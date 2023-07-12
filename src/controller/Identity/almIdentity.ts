@@ -5,7 +5,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { AlmInstance } from "../../schema/aml";
 import { ResponseInstance } from "../../schema/modules/amlInstance";
 
-export const createAlm = async (
+export const almIdentity = async (
   req: Request,
   res: Response,
   next: NextFunction

@@ -1,9 +1,9 @@
 import express from 'express';
-import { createPhone } from '../controller/Identity/phoneIdentity';
+import { phoneIdentity } from '../controller/Identity/phoneIdentity';
 
 
 const router = express.Router()
  
 
-router.post( '/phone', createPhone)
+router.post( '/phone_identity', phoneIdentity)
 export default router

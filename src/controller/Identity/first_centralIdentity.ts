@@ -5,7 +5,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { CreditInstance } from "../../schema/first_central";
 import { ResponseInstance } from "../../schema/modules/first_centralInstance";
 
-export const creatingCreditCentral = async (req: Request, res: Response) => {
+export const firstCentralIdentity = async (req: Request, res: Response) => {
   try {
     const endpoint = "/identity-verification?data_type=credit_first_central";
     const method = "POST";

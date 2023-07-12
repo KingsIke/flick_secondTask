@@ -1,9 +1,9 @@
 import express from 'express';
-import { createVotersCard } from '../controller/Identity/voterscard';
+import { votersCardIdentity } from '../controller/Identity/voterscard';
 
 
 const router = express.Router()
  
 
-router.post( '/voters_card', createVotersCard)
+router.post( '/voters_card_identity', votersCardIdentity)
 export default router

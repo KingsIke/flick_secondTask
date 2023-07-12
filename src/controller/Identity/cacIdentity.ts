@@ -6,7 +6,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { CACInstance } from "../../schema/cac";
 import { ResponseInstance } from "../../schema/modules/cacInstance";
 
-export const createCAC = async (
+export const cacIdentity = async (
   req: Request,
   res: Response,
   next: NextFunction

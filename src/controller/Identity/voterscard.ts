@@ -5,7 +5,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { VoterCardInstance } from "../../schema/voters_card";
 import { ResponseInstance } from "../../schema/modules/voters_cardInstance";
 
-export const createVotersCard = async (
+export const votersCardIdentity = async (
   req: Request,
   res: Response,
   next: NextFunction

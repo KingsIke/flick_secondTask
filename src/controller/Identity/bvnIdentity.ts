@@ -5,7 +5,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { BvnInstance } from "../../schema/bvn";
 import { ResponseInstance } from "../../schema/modules/bvnInstance"
 
-export const createBvn = async (
+export const bvnIdentity = async (
   req: Request,  
   res: Response,
   next: NextFunction

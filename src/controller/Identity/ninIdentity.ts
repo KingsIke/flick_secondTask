@@ -5,7 +5,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { NinInstance } from "../../schema/nin";
 import { ResponseInstance } from "../../schema/modules/ninInstance";
 
-export const createNin = async (
+export const ninIdentity = async (
   req: Request,
   res: Response,
   next: NextFunction

@@ -1,9 +1,9 @@
 import express from 'express';
-import { createAlm } from '../controller/Identity/almIdentity';
+import { almIdentity } from '../controller/Identity/almIdentity';
 
 
 const router = express.Router()
  
 
-router.post( '/aml', createAlm)
+router.post( '/aml', almIdentity)
 export default router

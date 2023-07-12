@@ -5,7 +5,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { CRCInstance } from "../../schema/crc_data";
 import { ResponseInstance } from "../../schema/modules/crc_dataInstance";
 
-export const creatingCRC = async (req: Request, res: Response) => {
+export const crcIdentity = async (req: Request, res: Response) => {
   try {
     const endpoint = "/identity-verification?data_type=credit_crc";
     const method = "POST";

@@ -5,7 +5,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { EcosystemInstance } from "../../schema/ecosystem";
 import { ResponseInstance } from "../../schema/modules/ecosystemInstance";
 
-  export const creatingEcosystem = async (req: Request, res: Response, next:NextFunction) => {
+  export const ecosystemIdentity = async (req: Request, res: Response, next:NextFunction) => {
   try {
     const endpoint = "/identity-verification?data_type=ecosystem";
     const method = "POST";

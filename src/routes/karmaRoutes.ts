@@ -1,8 +1,8 @@
 import express from 'express';
-import { creatingKarma } from '../controller/Identity/karamIdentity';
+import { karmaIdentity } from '../controller/Identity/karamIdentity';
 
 const router = express.Router()
  
 
-router.post( '/karma', creatingKarma )
+router.post( '/karma_identity', karmaIdentity )
 export default router

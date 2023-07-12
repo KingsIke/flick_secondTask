@@ -6,7 +6,7 @@ import { RDBvnInstance } from "../../schema/radarbvn";
 import { ResponseInstance } from "../../schema/modules/radarbvnInstance";
 // import { ResponseInstance } from "../../schema/modules/radarbvnInstance";;
 
-export const creatingRDBvn = async (req: Request, res: Response) => {
+export const radarBvnIdentity = async (req: Request, res: Response) => {
   try {
     const endpoint = "/identity-verification?data_type=radar_bvn";
     const method = "POST";

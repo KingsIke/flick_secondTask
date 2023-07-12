@@ -1,11 +1,9 @@
-
 import express from 'express';
-import { creatingRDPhone } from '../controller/Identity/radarphoneIdentity';
-import { creatingRDBvn } from '../controller/Identity/radarbvnIdentity';
+import { radarBvnIdentity } from '../controller/Identity/radarbvnIdentity';
 
 
 const router = express.Router();
 
-router.post( '/radar_bvn', creatingRDBvn
+router.post( '/radar_bvn_identity', radarBvnIdentity
 )
 export default router

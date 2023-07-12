@@ -5,7 +5,7 @@ import { sendRequest } from "../../config/osyterUrl";
 import { PhoneInstance } from "../../schema/phone";
 import { ResponseInstance } from "../../schema/modules/phoneInstance";
 
-export const createPhone = async (
+export const phoneIdentity = async (
   req: Request,
   res: Response,
   next: NextFunction
