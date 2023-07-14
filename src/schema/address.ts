@@ -4,13 +4,13 @@ import { connectDB } from "../config/db";
 export interface IADDRESS {
   idempotency_ref: string;
   data_type: string;
-  address: object;
+  data: object;
 } 
 
 export class AddressInstance extends Model<IADDRESS> {
  declare  idempotency_ref: string;
   declare data_type: string;
- declare  address: object
+ declare  data: object
 }
 
 AddressInstance.init(
@@ -26,7 +26,7 @@ AddressInstance.init(
       type: DataTypes.STRING,
             allowNull: false,
     },
-    address:{
+    data:{
       type: DataTypes.JSON,
       allowNull: false,
     }
